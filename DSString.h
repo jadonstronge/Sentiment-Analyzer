@@ -29,6 +29,7 @@ private:
      *    the c-string functions.
      **/
 
+    char* str;
 
 public:
 
@@ -38,15 +39,15 @@ public:
      * Make sure you do proper memory management.
      **/
     DSString();
-    DSString(const char*);
+    explicit DSString(const char*);
     DSString(const DSString&);
     ~DSString();
 
     /**
      * Overloaded Assignment Operators
      */
-    DSString& operator= (const char*);
-    DSString& operator= (const DSString&);
+    DSString& operator= (const char*) ;
+    DSString& operator= (const DSString&) ;
 
     /**
      * Overloaded non-modifying string concat
@@ -63,21 +64,24 @@ public:
      *
      **/
 
-    bool operator== (const char*);
-    bool operator== (const DSString&);
-    bool operator> (const DSString&);
-    bool operator> (const char*);
+    bool operator== (const char*) const;
+    bool operator== (const DSString&) const;
+    bool operator> (const DSString&) const;
+    bool operator> (const char*) const;
+
+    bool operator< (const DSString&) const;
+    bool operator< (const char*) const;
 
     /**
      * Subscript operator to access a particular character of a DSString object
      * @return the character requested by reference
      */
-    char& operator[] (const int);
+    char& operator[] (int);
 
     /**
      * getLength() returns the number (count) of characters in the string.
      **/
-    int getLength();
+    int length();
 
     /**
      * The substring method returns a string object that contains a
@@ -109,6 +113,15 @@ public:
     //Further - you will be able to update and modify this class as the
     //semester progresses.
 
+    // returns index of first occurrence of a character
+    int find(char);
+
+    // returns a pointer to the first occurrence of a substring in a char array
+    const char* find(const DSString&);
+    const char* find(const char*);
+
+    //hashes DSString to create custom index to store a pair
+    [[nodiscard]] int hash() const;
 };
 
 
